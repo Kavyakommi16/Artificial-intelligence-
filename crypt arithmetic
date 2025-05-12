@@ -1,0 +1,17 @@
+from itertools import permutations
+def solve_cryptarithmetic():
+    for S, E, N, D, M, O, R, Y in permutations(range(10), 8):
+        if S == 0 or M == 0:  
+            continue
+        if 1000 * S + 100 * E + 10 * N + D + 1000 * M + 100 * O + 10 * R + E
+        == 10000 * M + 1000 * O + 100 * N + 10 * E + Y:
+            return {'S': S, 'E': E, 'N': N, 'D': D, 'M': M,
+                    'O': O, 'R': R, 'Y': Y}
+    return None
+
+if _name_ == "_main_":
+    solution = solve_cryptarithmetic()
+    if solution:
+        print("Solution found:", solution)
+    else:
+        print("No solution found.")
