@@ -1,0 +1,18 @@
+class VacuumCleaner:
+    def _init_(self, grid):
+        self.grid = grid
+        self.position = (0, 0)
+    def run(self):
+        for i in range(len(self.grid)):
+            for j in range(len(self.grid[0])):
+                if self.grid[i][j] == 1:
+                    print(f"Cleaned position: ({i}, {j})")
+                    self.grid[i][j] = 0  # Clean the square
+# Example grid (1 = dirty, 0 = clean)
+grid = [
+    [1, 0, 1],
+    [0, 1, 0],
+    [1, 1, 1]
+]
+vacuum = VacuumCleaner(grid)
+vacuum.run()
