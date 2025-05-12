@@ -1,0 +1,25 @@
+from collections import deque
+def bfs():
+    queue = deque([((3, 3, 0, 0), [])])
+    visited = {(3, 3, 0, 0)}
+    while queue:
+        (m_left, c_left, m_right, c_right), path = queue.popleft()
+        if (m_left, c_left) == (0, 0):
+            return path + [(m_left, c_left, m_right, c_right)]
+        
+        for m, c in [(1, 0), (0, 1), (1, 1), (2, 0), (0, 2)]:
+            for d in [1, -1]:
+                new_state = (m_left - d * m, c_left - d * c, m_right + d * m, c_right + d * c)
+                if all(0 <= x <= 3 for x in new_state) and (new_state not in visited) and (new_state[0] == 0 or new_state[0] >= new_state[1]) and (new_state[2] == 0 or new_state[2] >= new_state[3]):
+                    visited.add(new_state)
+                    queue.append((new_state, path + [(m_left, c_left, m_right, c_right)]))
+    return None
+# Example usage
+if _name_ == "_main_":
+    solution = bfs()
+    if solution:
+        print("Solution found:")
+        for step in solution:
+            print(step)
+    else:
+        print("No solution found.")
