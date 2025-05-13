@@ -1,0 +1,25 @@
+from collections import deque
+def bfs(start):
+    goal = (1, 2, 3, 4, 5, 6, 7, 8, 0)
+    queue = deque([(start, start.index(0), 0)])
+    visited = {start}
+    while queue:
+        board, empty, moves = queue.popleft()
+        if board == goal:
+            return moves
+        
+        x, y = divmod(empty, 3)
+        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < 3 and 0 <= ny < 3:
+                new_empty = nx * 3 + ny
+                new_board = list(board)
+                new_board[empty], new_board[new_empty] = new_board[new_empty], new_board[empty]
+                new_board_tuple = tuple(new_board)
+                if new_board_tuple not in visited:
+                    visited.add(new_board_tuple)
+                    queue.append((new_board_tuple, new_empty, moves + 1))
+    return -1  # No solution
+# Example usage
+initial_board = (1, 2, 3, 4, 5, 6, 0, 7, 8)
+print(bfs(initial_board))
