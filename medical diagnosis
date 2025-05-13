@@ -1,0 +1,13 @@
+% Facts
+symptom(fever).
+symptom(cough).
+symptom(headache).
+disease(flu, [fever, cough]).
+disease(cold, [cough]).
+disease(migraine, [headache]).
+
+% Rules
+diagnose(Disease) :- disease(Disease, Symptoms), check_symptoms(Symptoms).
+
+check_symptoms([]).
+check_symptoms([H|T]) :- symptom(H), check_symptoms(T).
