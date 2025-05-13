@@ -1,0 +1,20 @@
+def pattern_match(pattern, term, bindings={}):
+    if isinstance(pattern, str) and pattern[0].isupper():
+        bindings[pattern] = term
+        return bindings
+    if pattern == term:
+        return bindings
+    if isinstance(pattern, list) and isinstance(term, list) and len(pattern) == len(term):
+        for p, t in zip(pattern, term):
+            bindings = pattern_match(p, t, bindings)
+            if bindings is None:
+                return None
+        return bindings
+    return None
+
+# Example usage
+pattern = ['f', 'X', ['g', 'Y']]
+term = ['f', 'a', ['g', 'b']]
+bindings = pattern_match(pattern, term)
+
+print("Bindings:", bindings if bindings else "No match")
